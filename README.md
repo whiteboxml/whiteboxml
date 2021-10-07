@@ -1,4 +1,4 @@
-<div align="center">
+<div style="text-align: center">
     <a href="https://whiteboxml.com">
         <img alt="whiteboxml logo" 
         width="380px" 

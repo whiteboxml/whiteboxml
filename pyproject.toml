@@ -1,9 +1,0 @@
-[build-system]
-requires = [
-    "matplotlib",
-    "scikit-learn",
-    "seaborn",
-    "setuptools>=42",
-    "wheel",
-]
-build-backend = "setuptools.build_meta"
