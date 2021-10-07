@@ -80,6 +80,7 @@ def plot_confusion_matrix(y_pred: Iterable[float],
     Args:
         y_pred: an iterable with the predicted class (0s, 1s, 2s,...).
         y_true: an iterable with the ground truth (0s, 1s, 2s,...).
+        class_labels: list with the names of the classes.
         figsize: figure size in inches (width x height).
 
     Returns:
