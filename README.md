@@ -59,3 +59,16 @@ ax.get_figure().savefig('confusion_matrix.png')
 ```
 
 ![roc auc](docs/images/confusion_matrix.png)
+
+* Optimal Threshold:
+
+```python
+import numpy as np
+
+from whiteboxml.modeling.metrics import get_optimal_thr
+
+y_pred_proba = np.random.normal(0, 1, (100, 1))
+y_true = np.random.choice([0, 1], (100, 1))
+
+thr = get_optimal_thr(y_pred=y_pred_proba, y_true=y_true)
+```
