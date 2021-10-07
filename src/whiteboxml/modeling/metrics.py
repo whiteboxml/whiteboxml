@@ -8,10 +8,12 @@ to use and with extended functionality.
 ####################################################################################################
 # IMPORTS
 
-from typing import Tuple, Iterable
+from typing import Tuple, Iterable, List, AnyStr
 
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, auc
+import seaborn as sns
+from sklearn.metrics import roc_curve, auc, confusion_matrix
+
 
 ####################################################################################################
 # FUNCTIONS
@@ -19,12 +21,12 @@ from sklearn.metrics import roc_curve, auc
 def plot_roc_auc_binary(y_pred: Iterable[float],
                         y_true: Iterable[float],
                         figsize: Tuple[int, int] = (8, 8)) -> tuple:
-    """Computes the roc curve and auc metrics for a binary classification
-    problem.
+    """Computes the roc curve and auc metrics for a binary classification problem.
 
         Args:
             y_pred: an iterable with the predicted probabilities.
             y_true: an iterable with the ground truth (1s and 0s).
+            figsize: figure size in inches (width x height).
 
         Returns:
             The roc curve plot with its associated metrics (fpr, tpr, thr, auc_score).
@@ -58,10 +60,50 @@ def plot_roc_auc_binary(y_pred: Iterable[float],
 
     # style
     ax.set_xlim([0.0, 1.0])
-    ax.set_ylim([0.0, 1.05])
+    ax.set_ylim([0.0, 1.0])
     ax.set_xlabel('false positive Rate')
     ax.set_ylabel('true positive Rate')
     ax.set_title('receiver operating characteristic curve')
     ax.legend(loc="lower right")
 
     return ax, fpr, tpr, thr, auc_score
+
+
+def plot_confusion_matrix(y_pred: Iterable[float],
+                          y_true: Iterable[float],
+                          class_labels: List[AnyStr] = None,
+                          figsize: Tuple[int, int] = None) -> plt.Axes:
+    """Computes the confusion matrix for either a binary or multiclass classification
+    problem.
+
+        Args:
+            y_pred: an iterable with the predicted class (0s, 1s, 2s,...).
+            y_true: an iterable with the ground truth (0s, 1s, 2s,...).
+            figsize: figure size in inches (width x height).
+
+        Returns:
+            The roc curve plot with its associated metrics (fpr, tpr, thr, auc_score).
+    """
+
+    matrix = confusion_matrix(y_pred=y_pred, y_true=y_true)
+
+    figsize = figsize if figsize else \
+        (1.5 * matrix.shape[0], 1.5 * matrix.shape[1])
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    sns.heatmap(matrix,
+                annot=True,
+                cbar=False,
+                fmt='d',
+                ax=ax)
+
+    if class_labels:
+        ax.set_xticklabels(class_labels)
+        ax.set_yticklabels(class_labels, va='center')
+
+    ax.set_title("confussion matrix")
+    ax.set_xlabel("predicted class")
+    ax.set_ylabel("actual class")
+
+    return ax, matrix
