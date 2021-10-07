@@ -11,6 +11,7 @@ to use and with extended functionality.
 from typing import Tuple, Iterable, List, AnyStr
 
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 from sklearn.metrics import roc_curve, auc, confusion_matrix
 
@@ -23,13 +24,13 @@ def plot_roc_auc_binary(y_pred: Iterable[float],
                         figsize: Tuple[int, int] = (8, 8)) -> tuple:
     """Computes the roc curve and auc metrics for a binary classification problem.
 
-        Args:
-            y_pred: an iterable with the predicted probabilities.
-            y_true: an iterable with the ground truth (1s and 0s).
-            figsize: figure size in inches (width x height).
+    Args:
+        y_pred: an iterable with the predicted probabilities.
+        y_true: an iterable with the ground truth (1s and 0s).
+        figsize: figure size in inches (width x height).
 
-        Returns:
-            The roc curve plot with its associated metrics (fpr, tpr, thr, auc_score).
+    Returns:
+        The roc curve plot with its associated metrics (fpr, tpr, thr, auc_score).
     """
 
     # parameters
@@ -72,17 +73,17 @@ def plot_roc_auc_binary(y_pred: Iterable[float],
 def plot_confusion_matrix(y_pred: Iterable[float],
                           y_true: Iterable[float],
                           class_labels: List[AnyStr] = None,
-                          figsize: Tuple[int, int] = None) -> plt.Axes:
+                          figsize: Tuple[int, int] = None) -> Tuple[plt.Axes, np.ndarray]:
     """Computes the confusion matrix for either a binary or multiclass classification
     problem.
 
-        Args:
-            y_pred: an iterable with the predicted class (0s, 1s, 2s,...).
-            y_true: an iterable with the ground truth (0s, 1s, 2s,...).
-            figsize: figure size in inches (width x height).
+    Args:
+        y_pred: an iterable with the predicted class (0s, 1s, 2s,...).
+        y_true: an iterable with the ground truth (0s, 1s, 2s,...).
+        figsize: figure size in inches (width x height).
 
-        Returns:
-            The confusion matrix in both plot and array flavors.
+    Returns:
+        The confusion matrix in both plot and array flavors.
     """
 
     # metrics computation
@@ -105,8 +106,25 @@ def plot_confusion_matrix(y_pred: Iterable[float],
         ax.set_yticklabels(class_labels, va='center')
 
     # style
-    ax.set_title("confussion matrix")
+    ax.set_title("confusion matrix")
     ax.set_xlabel("predicted class")
     ax.set_ylabel("actual class")
 
     return ax, matrix
+
+
+def get_optimal_thr(y_true: Iterable[float], y_pred: Iterable[float]) -> float:
+    """For a binary classification problem, computes threshold
+    to maximize tpr minus fpr metric.
+
+    Args:
+        y_pred: an iterable with the predicted probabilities.
+        y_true: an iterable with the ground truth (1s and 0s).
+
+    Returns:
+        The optimal threshold (0.0, 1.0).
+    """
+
+    fpr, tpr, thr = roc_curve(y_true, y_pred)
+
+    return thr[np.argmax(tpr - fpr)]
