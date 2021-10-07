@@ -106,7 +106,7 @@ def plot_confusion_matrix(y_pred: Iterable[float],
         ax.set_yticklabels(class_labels, va='center')
 
     # style
-    ax.set_title("confussion matrix")
+    ax.set_title("confusion matrix")
     ax.set_xlabel("predicted class")
     ax.set_ylabel("actual class")
 
