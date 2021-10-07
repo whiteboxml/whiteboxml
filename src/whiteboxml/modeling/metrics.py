@@ -82,9 +82,10 @@ def plot_confusion_matrix(y_pred: Iterable[float],
             figsize: figure size in inches (width x height).
 
         Returns:
-            The roc curve plot with its associated metrics (fpr, tpr, thr, auc_score).
+            The confusion matrix in both plot and array flavors.
     """
 
+    # metrics computation
     matrix = confusion_matrix(y_pred=y_pred, y_true=y_true)
 
     figsize = figsize if figsize else \
@@ -98,10 +99,12 @@ def plot_confusion_matrix(y_pred: Iterable[float],
                 fmt='d',
                 ax=ax)
 
+    # class labels
     if class_labels:
         ax.set_xticklabels(class_labels)
         ax.set_yticklabels(class_labels, va='center')
 
+    # style
     ax.set_title("confussion matrix")
     ax.set_xlabel("predicted class")
     ax.set_ylabel("actual class")
