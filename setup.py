@@ -13,7 +13,7 @@ requirements = [
 
 setuptools.setup(
     name='whiteboxml',
-    version='0.0.1',
+    version='0.0.2',
     author='WhiteBox',
     author_email='info@whiteboxml.com',
     description='Fancy data functions that will make your life as a data scientist easier.',
