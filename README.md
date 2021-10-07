@@ -40,7 +40,7 @@ ax, fpr, tpr, thr, auc_score = plot_roc_auc_binary(y_pred=y_pred, y_true=y_true,
 ax.get_figure().savefig('roc_curve.png')
 ```
 
-![roc auc](docs/images/roc_auc.png)
+<img src="https://github.com//whiteboxml/whiteboxml/raw/main/docs/images/roc_auc.png" alt="roc_auc">
 
 * Confusion Matrix:
 
@@ -58,7 +58,7 @@ ax, matrix = plot_confusion_matrix(y_pred=y_pred, y_true=y_true,
 ax.get_figure().savefig('confusion_matrix.png')
 ```
 
-![roc auc](docs/images/confusion_matrix.png)
+<img src="https://github.com//whiteboxml/whiteboxml/raw/main/docs/images/confusion_matrix.png" alt="confusion_matrix">
 
 * Optimal Threshold:
 
