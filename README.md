@@ -1,8 +1,7 @@
 <div style="text-align: center">
     <a href="https://whiteboxml.com">
         <img alt="whiteboxml logo" 
-        width="380px" 
-        height="140px" 
+        width="50%"
         src="https://whitebox-public.s3.eu-west-1.amazonaws.com/png/AF-logo-rgb-transparente-02.png">
     </a>
 </div>
