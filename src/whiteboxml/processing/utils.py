@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 ####################################################################################################
 # FUNCTIONS
 
+
 def optimize_size(df: pd.DataFrame, uniqueness_thr: float = 0.5) -> None:
     """
     This function reduces a pandas dataframe size adjusting optimum dtypes, inplace.
@@ -37,18 +38,18 @@ def optimize_size(df: pd.DataFrame, uniqueness_thr: float = 0.5) -> None:
 
     # optimize numeric
 
-    f_cols = df.select_dtypes('float').columns
-    i_cols = df.select_dtypes('integer').columns
+    f_cols = df.select_dtypes("float").columns
+    i_cols = df.select_dtypes("integer").columns
 
-    logger.debug(f'float columns detected: {f_cols}')
-    df.loc[:, f_cols] = df.loc[:, f_cols].apply(pd.to_numeric, downcast='float')
+    logger.debug(f"float columns detected: {f_cols}")
+    df.loc[:, f_cols] = df.loc[:, f_cols].apply(pd.to_numeric, downcast="float")
 
-    logger.debug(f'integer columns detected: {i_cols}')
-    df.loc[:, i_cols] = df.loc[:, i_cols].apply(pd.to_numeric, downcast='integer')
+    logger.debug(f"integer columns detected: {i_cols}")
+    df.loc[:, i_cols] = df.loc[:, i_cols].apply(pd.to_numeric, downcast="integer")
 
     # optimize object
 
-    o_cols = df.select_dtypes('object')
+    o_cols = df.select_dtypes("object")
 
     for o_col in o_cols:
 
@@ -56,8 +57,8 @@ def optimize_size(df: pd.DataFrame, uniqueness_thr: float = 0.5) -> None:
         uniqueness = df.loc[:, o_col].nunique() / len(df)
 
         if uniqueness < uniqueness_thr:
-            df.loc[:, o_col] = df.loc[:, o_col].astype('category', copy=False)
+            df.loc[:, o_col] = df.loc[:, o_col].astype("category", copy=False)
 
     end = df.memory_usage(deep=True).sum()
 
-    logger.info(f'optimized df size from {start / 1e6:.2f}MB to {end / 1e6:.2f}MB')
+    logger.info(f"optimized df size from {start / 1e6:.2f}MB to {end / 1e6:.2f}MB")

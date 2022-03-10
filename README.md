@@ -3,9 +3,11 @@
         <img alt="whiteboxml logo" 
         width="380px" 
         height="140px" 
-        src="https://whitebox-public.s3-eu-west-1.amazonaws.com/black_bg_white.svg">
+        src="https://whitebox-public.s3.eu-west-1.amazonaws.com/png/AF-logo-rgb-transparente-02.png">
     </a>
 </div>
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ------------------------------------------------------
 
